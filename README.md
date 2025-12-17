@@ -1,138 +1,239 @@
 ## 🚇 Intelligent Transport Network Management System (ITNMS)
 
-[cite_start]This project, developed for the CS221 Data Structures & Algorithms course (Fall 2025) [cite: 1, 2][cite_start], simulates a smart city transportation network[cite: 6]. [cite_start]It is designed to provide students with hands-on experience in applying core Data Structures and Algorithms (DSA) to design and implement a complex, real-world software system[cite: 5, 130].
+The **Intelligent Transport Network Management System (ITNMS)** is a comprehensive course project developed for the **CS221 – Data Structures & Algorithms** course. The project simulates a smart city transportation network and is designed to demonstrate the **practical application of core data structures and algorithms** in a realistic, large-scale system.
 
-[cite_start]The system manages vehicles, passengers, routes, stations, ticketing, shortest paths, and traffic operations[cite: 6].
+This project strictly avoids built-in data structures and algorithm libraries, ensuring that **all logic is implemented manually** to meet academic requirements.
 
-### 🛠️ Technical Requirements & Constraints
+---
 
-  * [cite_start]**Programming Language:** C++[cite: 74].
-  * [cite_start]**Design:** Object-Oriented Design (OOD)[cite: 75]. [cite_start]Use separate classes for each module[cite: 77].
-  * [cite_start]**Code Quality:** Must be modular, readable, and documented[cite: 78]. [cite_start]Provide complexity analysis for each algorithm used[cite: 79].
-  * [cite_start]**Mandatory Constraint:** All data structures must be implemented manually[cite: 122]. [cite_start]Searching and sorting must be coded by students (not built-in)[cite: 123]. [cite_start]No use of external libraries for graph algorithms (except I/O)[cite: 121].
+## 🎯 Project Objectives
 
-### 💡 Core Data Structures Implemented
+* Apply fundamental **Data Structures & Algorithms (DSA)** to a real-world problem
+* Strengthen understanding of **graphs, trees, hashing, heaps, stacks, and queues**
+* Practice **object-oriented design (OOD)** in C++
+* Analyze and document **time and space complexity** of algorithms
+* Build a modular, extensible, and well-documented system
 
-[cite_start]The project integrates all major concepts of CS221, including arrays, linked lists, queues, stacks, trees, graphs, hashing, and a complete set of searching and sorting algorithms[cite: 7].
+---
 
-| Concept | Usage in ITNMS | Implementation Required |
-| :--- | :--- | :--- |
-| **Graphs** | Main transport network, modeling stations and routes. | [cite_start]Adjacency List/Matrix[cite: 22]. |
-| **Hash Tables** | [cite_start]Vehicle/passenger lookup[cite: 22]. | [cite_start]Collision handling (preferably chaining)[cite: 43]. |
-| **Queues** | [cite_start]Passenger waiting line for the Ticketing System[cite: 22, 33]. | [cite_start]Linked-List Queue or Circular Queue allowed[cite: 37]. |
-| **Stacks** | [cite_start]Undo/redo, navigation history[cite: 22, 44]. | [cite_start]Storing operations history[cite: 47]. |
-| **Trees (BST/AVL)** | [cite_start]Store route or station metadata[cite: 22]. | [cite_start]BST or AVL[cite: 22]. |
-| **Heaps** | [cite_start]Fastest vehicle, traffic prioritization[cite: 22, 70, 71]. | [cite_start]Priority Queue implementation[cite: 22]. |
-| **Arrays** | [cite_start]Store static data (e.g., station list, fare list)[cite: 22]. | [cite_start]Custom implementation[cite: 22]. |
-| **Linked Lists** | [cite_start]Used in hash table chaining, dynamic queues[cite: 22]. | [cite_start]Custom implementation[cite: 22]. |
+## 🛠️ Technical Requirements
 
-### 📋 System Modules & Required Algorithms
+* **Language:** C++
+* **Paradigm:** Object-Oriented Programming (OOP)
+* **Constraint:**
 
-#### 1\. Route & Station Management (Graphs)
+  * No STL containers for core data structures
+  * No external graph or algorithm libraries
+  * All searching, sorting, and data structures implemented manually
 
-  * [cite_start]Add/Delete Station [cite: 25] [cite_start]and Route (edge)[cite: 26].
-  * [cite_start]Display all connected stations[cite: 27].
-  * [cite_start]Perform BFS & DFS[cite: 28].
-  * [cite_start]**Shortest Path:** Find Shortest Path using **Dijkstra's Algorithm**[cite: 29].
-  * [cite_start]**Topology:** Generate Minimum Spanning Tree (MST) [cite: 30] [cite_start]and Detect cycles in the network[cite: 31].
+---
 
-#### 2\. Passenger Ticketing System (Queues)
+## 💡 Core Data Structures Used
 
-  * [cite_start]Implement a FIFO queue for ticket requests[cite: 33].
-  * [cite_start]Functions: Passenger enters queue [cite: 34][cite_start], Process next passenger [cite: 36][cite_start], Display queue[cite: 35].
+| Data Structure               | Usage                                                     |
+| ---------------------------- | --------------------------------------------------------- |
+| **Graphs**                   | Transport network (stations as vertices, routes as edges) |
+| **Hash Tables**              | Vehicle and passenger lookup (with chaining)              |
+| **Queues**                   | Passenger ticketing system (FIFO)                         |
+| **Stacks**                   | Undo/redo operations, navigation history                  |
+| **Binary Search Tree (BST)** | Route/station metadata, analytics                         |
+| **Heaps (Min-Heap)**         | Fastest vehicle assignment, traffic priority              |
+| **Arrays**                   | Static data storage (stations, fares, routes)             |
+| **Linked Lists**             | Hash table chaining, dynamic queues                       |
 
-#### 3\. Vehicle Database (Hashing)
+---
 
-  * [cite_start]Use a hash table to store and retrieve vehicles[cite: 39].
-  * [cite_start]Functions: Insert vehicle [cite: 40][cite_start], Search vehicle [cite: 41][cite_start], Remove vehicle[cite: 42].
-  * [cite_start]Handle collisions (preferably chaining)[cite: 43].
+## 📋 System Modules & Algorithms
 
-#### 4\. History & Undo Operations (Stacks)
+### 1. 🚏 Route & Station Management (Graph Module)
 
-  * [cite_start]Use a stack to store operations such as last visited station [cite: 46] [cite_start]or actions history[cite: 47].
-  * [cite_start]Function: Undo last action[cite: 48].
+* Add / Delete stations
+* Add / Delete routes (edges)
+* Display connected stations
+* **Graph Traversals:**
 
-#### 5\. Searching & Sorting Module
+  * Breadth First Search (BFS)
+  * Depth First Search (DFS)
+* **Shortest Path:** Dijkstra’s Algorithm
+* **Network Analysis:**
 
-[cite_start]The user must select the algorithm to apply on a dataset[cite: 50].
+  * Minimum Spanning Tree (MST)
+  * Cycle detection
 
-| Category | Algorithms Required |
-| :--- | :--- |
-| **Searching** | [cite_start]Linear Search [cite: 52][cite_start], Binary Search[cite: 53]. |
-| **Sorting** | [cite_start]Bubble Sort [cite: 55][cite_start], Selection Sort [cite: 56][cite_start], Insertion Sort [cite: 57][cite_start], Merge Sort [cite: 58][cite_start], Quick Sort [cite: 59][cite_start], Heap Sort[cite: 60]. |
+---
 
-For each algorithm, the implementation must include:
+### 2. 🎟️ Passenger Ticketing System (Queue)
 
-  * [cite_start]Best/Worst/Average time complexity[cite: 63].
-  * [cite_start]Space complexity[cite: 64].
-  * [cite_start]Sample dataset execution[cite: 65].
+* FIFO passenger queue
+* Passenger enters queue
+* Process next passenger
+* Display waiting queue
 
-#### 6\. Binary Search Tree Module
+---
 
-  * Insert, search, and remove operations
-  * In-order traversal for displaying sorted data
-  * Used for storing and managing route or station metadata
+### 3. 🚗 Vehicle Database (Hash Table)
 
-#### 7\. Heap (Priority Queue) Module
+* Insert vehicle
+* Search vehicle
+* Remove vehicle
+* Collision handling using **chaining (linked lists)**
 
-  * Min-Heap implementation for priority-based operations
-  * Insert and extract minimum operations
-  * Used for fastest vehicle assignment and traffic prioritization
+---
 
-#### 8\. Analytics & Reporting Module
+### 4. 🔄 History & Undo Operations (Stack)
 
-  * Station visit frequency tracking
-  * Most crowded station identification
-  * Busiest route analysis
-  * Route weight analysis
-  * Traffic density prediction using heap sort
-  * Daily usage trends analysis using BST
-  * Comprehensive reporting system
+* Store last visited stations or actions
+* Undo last operation
+* Action history tracking
 
-### 📁 Project Structure
+---
 
-The project uses a header-only architecture with all implementations in header files:
+### 5. 🔍 Searching & Sorting Module
 
-- `main.cpp` - Main program entry point and menu system
-- `CityGraph.h` - Graph operations (stations, routes, BFS, DFS, Dijkstra, MST, cycle detection)
-- `VehicleMap.h` - Hash table implementation for vehicle management
-- `CoreDS.h` - Core data structures (Queue, Stack)
-- `SortSearch.h` - Searching and sorting algorithms
-- `Tree.h` - Binary Search Tree (BST) implementation
-- `Heap.h` - Min-Heap/Priority Queue implementation
-- `Analytics.h` - Advanced analytics and reporting features
-- `Models.h` - Data models and structures
+Users can choose which algorithm to apply on datasets.
 
-### 💻 Instructions to Run the Project
+#### Searching Algorithms
 
-1.  **Clone the Repository:**
-    ```bash
-    git clone [repository_url]
-    cd cs221_project
-    ```
+* Linear Search
+* Binary Search
 
-2.  **Compilation:**
-    Compile the main source file using a C++ compiler (like g++):
-    ```bash
-    g++ main.cpp -o ITNMS_Project
-    ```
-    On Windows (using MinGW or similar):
-    ```bash
-    g++ main.cpp -o ITNMS_Project.exe
-    ```
+#### Sorting Algorithms
 
-3.  **Execution:**
-    On Linux/Mac:
-    ```bash
-    ./ITNMS_Project
-    ```
-    On Windows:
-    ```bash
-    ITNMS_Project.exe
-    ```
-    or
-    ```bash
-    .\ITNMS_Project.exe
-    ```
+* Bubble Sort
+* Selection Sort
+* Insertion Sort
+* Merge Sort
+* Quick Sort
+* Heap Sort
 
-4.  **Usage:** Follow the menu prompts to test the core functions like adding stations, creating routes, calculating the shortest path, managing the passenger queue, and exploring all implemented data structures and algorithms.
+Each algorithm includes:
+
+* Best, Average, and Worst-case time complexity
+* Space complexity
+* Sample execution on test data
+
+---
+
+### 6. 🌳 Binary Search Tree (BST) Module
+
+* Insert, search, and delete operations
+* In-order traversal for sorted output
+* Used for metadata storage and analytics
+
+---
+
+### 7. ⏱️ Heap / Priority Queue Module
+
+* Custom Min-Heap implementation
+* Insert and extract-min operations
+* Used for:
+
+  * Fastest vehicle assignment
+  * Traffic prioritization
+
+---
+
+### 8. 📊 Analytics & Reporting Module
+
+* Station visit frequency tracking
+* Most crowded station detection
+* Busiest route analysis
+* Route weight analysis
+* Traffic density prediction (Heap-based)
+* Daily usage trend analysis (BST-based)
+* Summary reports for system insights
+
+---
+
+## 📁 Project Structure
+
+```
+├── main.cpp          // Program entry point & menu system
+├── CityGraph.h      // Graph operations (BFS, DFS, Dijkstra, MST)
+├── VehicleMap.h     // Hash table for vehicle management
+├── CoreDS.h         // Stack and Queue implementations
+├── SortSearch.h     // Searching & sorting algorithms
+├── Tree.h           // Binary Search Tree implementation
+├── Heap.h           // Min-Heap / Priority Queue
+├── Analytics.h      // Reporting & analytics logic
+├── Models.h         // Data models and structures
+```
+
+> **Note:** This project uses a **header-only architecture** as per course constraints.
+
+---
+
+## 💻 How to Compile & Run
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/MuhammadAhmadF2005/DSA_project.git
+cd DSA_project
+```
+
+### 2️⃣ Compile
+
+**Linux / macOS:**
+
+```bash
+g++ main.cpp -o ITNMS_Project
+```
+
+**Windows (MinGW):**
+
+```bash
+g++ main.cpp -o ITNMS_Project.exe
+```
+
+### 3️⃣ Run
+
+**Linux / macOS:**
+
+```bash
+./ITNMS_Project
+```
+
+**Windows:**
+
+```bash
+ITNMS_Project.exe
+```
+
+---
+
+## ✅ Usage
+
+Use the interactive menu to:
+
+* Add stations and routes
+* Find shortest paths
+* Manage passenger queues
+* Insert/search vehicles
+* Apply sorting and searching algorithms
+* View analytics and reports
+
+---
+
+## 📚 Academic Notes
+
+* All data structures are **implemented from scratch**
+* No STL containers are used for core logic
+* Designed strictly according to **CS221 DSA course guidelines**
+
+---
+
+## 👨‍💻 Author
+
+**Muhammad Ahmad**
+**Raja Hamza**
+**Muhammad Haider Ali**
+**Muhammad Zaid**
+
+CS | GIKI
+
+---
+
+## 📜 License
+
+This project is intended for **academic and learning purposes only**.
