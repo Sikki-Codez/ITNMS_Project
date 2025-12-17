@@ -1,4 +1,7 @@
 // Analytics.h - Advanced DSA Analytics & Reporting Module
+#ifndef ANALYTICS_H
+#define ANALYTICS_H
+
 #include "CityGraph.h"
 #include "VehicleMap.h"
 #include "Tree.h"
@@ -257,3 +260,5 @@ public:
         cout << "\n========================================\n";
     }
 };
+
+#endif // ANALYTICS_H

@@ -1,4 +1,7 @@
 // CoreDS.h
+#ifndef COREDS_H
+#define COREDS_H
+
 #include "Models.h"
 
 // --- 1. Passenger Queue (FIFO) ---
@@ -80,3 +83,5 @@ public:
 
     bool isEmpty() { return top == nullptr; }
 };
+
+#endif // COREDS_H

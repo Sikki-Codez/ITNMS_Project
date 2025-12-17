@@ -1,4 +1,7 @@
 // VehicleMap.h
+#ifndef VEHICLEMAP_H
+#define VEHICLEMAP_H
+
 #include "Models.h"
 
 const int TABLE_SIZE = 10;
@@ -78,3 +81,5 @@ public:
         cout << "Vehicle not found.\n";
     }
 };
+
+#endif // VEHICLEMAP_H

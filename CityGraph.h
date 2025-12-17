@@ -1,4 +1,7 @@
 // CityGraph.h
+#ifndef CITYGRAPH_H
+#define CITYGRAPH_H
+
 #include "Models.h"
 #include <climits> // For INT_MAX
 
@@ -417,3 +420,5 @@ public:
         }
     }
 };
+
+#endif // CITYGRAPH_H

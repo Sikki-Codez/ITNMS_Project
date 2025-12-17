@@ -1,4 +1,7 @@
 // Tree.h - Binary Search Tree for storing route/station metadata
+#ifndef TREE_H
+#define TREE_H
+
 #include "Models.h"
 #include <iostream>
 using namespace std;
@@ -125,3 +128,4 @@ public:
     }
 };
 
+#endif // TREE_H

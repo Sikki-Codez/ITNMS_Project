@@ -1,4 +1,7 @@
 // Heap.h - Priority Queue (Min Heap) for fastest vehicle, traffic prioritization
+#ifndef HEAP_H
+#define HEAP_H
+
 #include <iostream>
 #include <climits>
 using namespace std;
@@ -118,3 +121,4 @@ public:
     }
 };
 
+#endif // HEAP_H

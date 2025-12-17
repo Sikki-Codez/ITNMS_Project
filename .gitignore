@@ -58,6 +58,9 @@ tempCodeRunnerFile.*
 # PDF files (if you don't want to track them)
 # Project CS221.pdf
 
+# Documentation/Checklist files
+SUBMISSION_CHECKLIST.md
+
 # OS files
 Thumbs.db
 ehthumbs.db

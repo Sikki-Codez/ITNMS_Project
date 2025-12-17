@@ -1,4 +1,7 @@
 // SortSearch.h
+#ifndef SORTSEARCH_H
+#define SORTSEARCH_H
+
 #include <iostream>
 #include <chrono>
 #include <iomanip>
@@ -13,7 +16,7 @@ struct ComplexityMetrics
     double executionTime; // in milliseconds
     int comparisons;
     int swaps;
-    
+
     void display()
     {
         cout << "\n=== Complexity Analysis: " << algorithm << " ===\n";
@@ -129,7 +132,7 @@ public:
     {
         compCount = 0;
         auto start = high_resolution_clock::now();
-        
+
         for (int i = 0; i < n; i++)
         {
             compCount++;
@@ -148,7 +151,7 @@ public:
                 return m;
             }
         }
-        
+
         auto end = high_resolution_clock::now();
         double time = duration<double, milli>(end - start).count();
         ComplexityMetrics m;
@@ -168,7 +171,7 @@ public:
         compCount = 0;
         auto start = high_resolution_clock::now();
         int foundIdx = -1;
-        
+
         while (l <= r)
         {
             compCount++;
@@ -185,7 +188,7 @@ public:
             else
                 r = mid - 1;
         }
-        
+
         auto end = high_resolution_clock::now();
         double time = duration<double, milli>(end - start).count();
         ComplexityMetrics metrics;
@@ -195,12 +198,12 @@ public:
         metrics.executionTime = time;
         metrics.comparisons = compCount;
         metrics.swaps = -1;
-        
+
         if (foundIdx != -1)
             cout << "Element found at index: " << foundIdx << "\n";
         else
             cout << "Element not found.\n";
-        
+
         return metrics;
     }
 
@@ -209,7 +212,7 @@ public:
     {
         compCount = swapCount = 0;
         auto start = high_resolution_clock::now();
-        
+
         for (int i = 0; i < n - 1; i++)
         {
             for (int j = 0; j < n - i - 1; j++)
@@ -222,7 +225,7 @@ public:
                 }
             }
         }
-        
+
         auto end = high_resolution_clock::now();
         double time = duration<double, milli>(end - start).count();
         ComplexityMetrics m;
@@ -240,7 +243,7 @@ public:
     {
         compCount = swapCount = 0;
         auto start = high_resolution_clock::now();
-        
+
         for (int i = 0; i < n - 1; i++)
         {
             int minIdx = i;
@@ -256,7 +259,7 @@ public:
                 swapCount++;
             }
         }
-        
+
         auto end = high_resolution_clock::now();
         double time = duration<double, milli>(end - start).count();
         ComplexityMetrics m;
@@ -274,7 +277,7 @@ public:
     {
         compCount = swapCount = 0;
         auto start = high_resolution_clock::now();
-        
+
         for (int i = 1; i < n; i++)
         {
             int key = arr[i];
@@ -289,7 +292,7 @@ public:
             }
             arr[j + 1] = key;
         }
-        
+
         auto end = high_resolution_clock::now();
         double time = duration<double, milli>(end - start).count();
         ComplexityMetrics m;
@@ -364,7 +367,7 @@ public:
     {
         compCount = swapCount = 0;
         auto start = high_resolution_clock::now();
-        
+
         for (int i = n / 2 - 1; i >= 0; i--)
             heapify(arr, n, i);
 
@@ -374,7 +377,7 @@ public:
             swapCount++;
             heapify(arr, i, 0);
         }
-        
+
         auto end = high_resolution_clock::now();
         double time = duration<double, milli>(end - start).count();
         ComplexityMetrics m;
@@ -397,3 +400,5 @@ public:
 
 int SortSearchUtils::compCount = 0;
 int SortSearchUtils::swapCount = 0;
+
+#endif // SORTSEARCH_H
