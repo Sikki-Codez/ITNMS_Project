@@ -1,0 +1,571 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+
+% Code listing style
+\lstset{
+    language=C++,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{green},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,
+    breaklines=true,
+    breakatwhitespace=false,
+    tabsize=2
+}
+
+\title{Intelligent Transport Network Management System (ITNMS):\\A Comprehensive Application of Data Structures and Algorithms}
+\author{Student Name, Student ID\\Course: CS221 -- Data Structures \& Algorithms\\Semester: Fall 2025}
+\date{}
+
+\begin{document}
+
+% Cover Page
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\begin{abstract}
+This paper presents the design and implementation of the Intelligent Transport Network Management System (ITNMS), a comprehensive software system that simulates a smart city transportation network. The system demonstrates the practical application of core data structures and algorithms including graphs, hash tables, queues, stacks, trees, and heaps. ITNMS provides functionalities for route management, passenger ticketing, vehicle database operations, and analytical reporting. All data structures and algorithms are implemented manually without relying on standard template library (STL) containers, ensuring a thorough understanding of fundamental computer science concepts. The system serves as a practical demonstration of how theoretical data structures and algorithms can be applied to solve real-world transportation management problems.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Data Structures, Algorithms, Graph Theory, Hash Tables, Transportation Systems, Dijkstra's Algorithm, Minimum Spanning Tree
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+The Intelligent Transport Network Management System (ITNMS) is a semester project developed for the CS221 Data Structures and Algorithms course. The project aims to provide hands-on experience in applying fundamental data structures and algorithms to design and implement a complex, real-world software system that simulates a smart city transportation network.
+
+Modern transportation systems require efficient management of stations, routes, vehicles, and passengers. Similar to metro systems, bus routing systems, and GPS navigation applications, ITNMS models the functioning of a city-wide transport network. The system integrates all major concepts of CS221, including arrays, linked lists, queues, stacks, trees, graphs, hashing, and a complete set of searching and sorting algorithms.
+
+The primary objectives of this project are:
+\begin{itemize}
+    \item To demonstrate practical application of core data structures and algorithms
+    \item To implement a modular, extensible system using object-oriented design principles
+    \item To analyze and document time and space complexity of all implemented algorithms
+    \item To provide a comprehensive understanding of how theoretical concepts translate to real-world solutions
+\end{itemize}
+
+This report presents the system requirements, design methodology, implementation details, algorithm analysis, testing procedures, and results of the ITNMS project.
+
+\section{System Requirement Specifications (SRS)}
+
+\subsection{Functional Requirements}
+
+The ITNMS system must fulfill the following functional requirements:
+
+\subsubsection{Route and Station Management}
+\begin{itemize}
+    \item Add and delete stations in the transport network
+    \item Add and delete routes (edges) connecting stations
+    \item Display all connected stations in the network
+    \item Perform graph traversals (BFS and DFS)
+    \item Find shortest path between any two stations using Dijkstra's algorithm
+    \item Generate Minimum Spanning Tree (MST) of the network
+    \item Detect cycles in the network graph
+\end{itemize}
+
+\subsubsection{Passenger Ticketing System}
+\begin{itemize}
+    \item Implement a FIFO queue for ticket requests
+    \item Allow passengers to enter the queue
+    \item Display current waiting queue
+    \item Process next passenger in queue
+    \item Support circular queue or linked-list queue implementation
+\end{itemize}
+
+\subsubsection{Vehicle Database Management}
+\begin{itemize}
+    \item Insert new vehicles into the database
+    \item Search for vehicles by identifier
+    \item Remove vehicles from the database
+    \item Handle hash collisions using chaining (linked lists)
+\end{itemize}
+
+\subsubsection{History and Undo Operations}
+\begin{itemize}
+    \item Store last visited stations
+    \item Maintain action history
+    \item Undo last performed action
+\end{itemize}
+
+\subsubsection{Searching and Sorting Module}
+\begin{itemize}
+    \item Implement linear search algorithm
+    \item Implement binary search algorithm
+    \item Implement bubble sort
+    \item Implement selection sort
+    \item Implement insertion sort
+    \item Implement merge sort
+    \item Implement quick sort
+    \item Implement heap sort
+    \item Display complexity analysis for each algorithm
+    \item Execute algorithms on sample datasets
+\end{itemize}
+
+\subsubsection{Analytics and Reporting}
+\begin{itemize}
+    \item Track station visit frequency
+    \item Identify most crowded station
+    \item Analyze busiest routes
+    \item Assign fastest vehicles using priority queues
+    \item Predict traffic density using heap sorting
+    \item Generate daily usage trends using BST traversal
+\end{itemize}
+
+\subsection{Non-Functional Requirements}
+
+\begin{itemize}
+    \item \textbf{Programming Language:} C++
+    \item \textbf{Design Paradigm:} Object-Oriented Design
+    \item \textbf{Code Quality:} Modular, readable, and well-documented
+    \item \textbf{Performance:} Efficient algorithms with documented complexity
+    \item \textbf{Constraints:} No use of external libraries for graph algorithms (except I/O)
+    \item \textbf{Implementation:} All data structures must be implemented manually
+    \item \textbf{Searching/Sorting:} Must be coded by students, not using built-in functions
+\end{itemize}
+
+\section{System Design}
+
+\subsection{Architecture Overview}
+
+The ITNMS system follows a modular architecture where each major functionality is encapsulated in separate classes. The system uses a header-only architecture to maintain simplicity while ensuring modularity. The main components include:
+
+\begin{itemize}
+    \item \textbf{Graph Module (CityGraph.h):} Handles all graph-related operations including station and route management
+    \item \textbf{Hash Table Module (VehicleMap.h):} Manages vehicle database using hash tables with chaining
+    \item \textbf{Core Data Structures (CoreDS.h):} Implements stack and queue data structures
+    \item \textbf{Searching and Sorting (SortSearch.h):} Contains all searching and sorting algorithm implementations
+    \item \textbf{Tree Module (Tree.h):} Binary Search Tree implementation for metadata storage
+    \item \textbf{Heap Module (Heap.h):} Min-Heap implementation for priority queue operations
+    \item \textbf{Analytics Module (Analytics.h):} Provides reporting and analytical functionalities
+    \item \textbf{Data Models (Models.h):} Defines data structures for stations, vehicles, and passengers
+    \item \textbf{Main Controller (main.cpp):} Entry point with interactive menu system
+\end{itemize}
+
+\subsection{Data Structure Design}
+
+\subsubsection{Graph Representation}
+The transport network is represented as a weighted, undirected graph using an adjacency list structure. Each station is a vertex, and routes between stations are edges with weights representing distance or travel time. The graph supports:
+\begin{itemize}
+    \item Dynamic addition and removal of vertices (stations)
+    \item Dynamic addition and removal of edges (routes)
+    \item Efficient traversal operations
+    \item Path finding algorithms
+\end{itemize}
+
+\subsubsection{Hash Table Design}
+The vehicle database uses a hash table with chaining to handle collisions. The hash function maps vehicle identifiers to array indices, and linked lists are used to store vehicles that hash to the same index. This design provides:
+\begin{itemize}
+    \item Average O(1) insertion, search, and deletion operations
+    \item Efficient collision handling
+    \item Dynamic resizing capability
+\end{itemize}
+
+\subsubsection{Queue Implementation}
+The passenger ticketing system uses a FIFO queue implemented using either a circular array or linked list. The queue maintains the order of passenger requests and processes them sequentially.
+
+\subsubsection{Stack Implementation}
+The history and undo system uses a stack data structure to store operations in LIFO order, allowing users to undo the most recent actions.
+
+\subsection{UML Class Diagram}
+
+The system follows an object-oriented design with the following key classes:
+
+\begin{itemize}
+    \item \textbf{CityGraph:} Manages the transport network graph
+    \item \textbf{VehicleMap:} Handles vehicle database operations
+    \item \textbf{Queue:} Implements FIFO queue for passengers
+    \item \textbf{Stack:} Implements LIFO stack for history
+    \item \textbf{BinarySearchTree:} Stores and manages route metadata
+    \item \textbf{MinHeap:} Implements priority queue for vehicle assignment
+    \item \textbf{Analytics:} Generates reports and statistics
+\end{itemize}
+
+\subsection{Flowchart Design}
+
+The system follows a menu-driven architecture where users interact through a main menu. The flowchart includes:
+\begin{enumerate}
+    \item System initialization
+    \item Main menu display
+    \item User selection input
+    \item Module-specific operations
+    \item Result display
+    \item Return to main menu or exit
+\end{enumerate}
+
+\section{Implementation}
+
+\subsection{Graph Module Implementation}
+
+The CityGraph class implements the transport network using an adjacency list representation. Key operations include:
+
+\subsubsection{Station Management}
+Stations are added to the graph as vertices. Each station maintains a list of connected stations and corresponding edge weights. The implementation ensures that stations can be dynamically added or removed while maintaining graph integrity.
+
+\subsubsection{Graph Traversal Algorithms}
+\begin{itemize}
+    \item \textbf{Breadth-First Search (BFS):} Implemented using a queue to explore all nodes at the current depth before moving to the next level. Used for finding shortest unweighted paths and exploring all connected components.
+    \item \textbf{Depth-First Search (DFS):} Implemented using recursion or an explicit stack to explore as far as possible along each branch before backtracking. Used for cycle detection and topological sorting.
+\end{itemize}
+
+\subsubsection{Shortest Path Algorithm}
+Dijkstra's algorithm is implemented using a priority queue (min-heap) to find the shortest path between two stations. The algorithm maintains distances from the source and updates them as shorter paths are discovered.
+
+\subsubsection{Minimum Spanning Tree}
+The MST is generated using either Kruskal's or Prim's algorithm, creating a tree that connects all stations with minimum total edge weight.
+
+\subsubsection{Cycle Detection}
+Cycles are detected using DFS with a visited array and recursion stack to identify back edges.
+
+\subsection{Hash Table Implementation}
+
+The VehicleMap class implements a hash table with the following features:
+\begin{itemize}
+    \item Hash function that maps vehicle IDs to array indices
+    \item Chaining using linked lists to handle collisions
+    \item Dynamic resizing when load factor exceeds threshold
+    \item Efficient search, insert, and delete operations
+\end{itemize}
+
+\subsection{Queue Implementation}
+
+The passenger ticketing queue is implemented as a FIFO structure supporting:
+\begin{itemize}
+    \item Enqueue operation to add passengers
+    \item Dequeue operation to process next passenger
+    \item Display operation to show current queue
+    \item Empty and full state checking
+\end{itemize}
+
+\subsection{Stack Implementation}
+
+The history stack supports:
+\begin{itemize}
+    \item Push operation to store actions
+    \item Pop operation to retrieve and undo last action
+    \item Peek operation to view top element without removal
+    \item Display operation to show history
+\end{itemize}
+
+\subsection{Searching Algorithms}
+
+\subsubsection{Linear Search}
+Sequentially checks each element in the array until the target is found or all elements are checked. Suitable for unsorted data.
+
+\subsubsection{Binary Search}
+Requires sorted data and uses divide-and-conquer approach. Repeatedly divides the search space in half until the target is found.
+
+\subsection{Sorting Algorithms}
+
+All sorting algorithms are implemented manually:
+
+\begin{itemize}
+    \item \textbf{Bubble Sort:} Repeatedly steps through the list, compares adjacent elements, and swaps them if in wrong order
+    \item \textbf{Selection Sort:} Finds minimum element and places it at the beginning
+    \item \textbf{Insertion Sort:} Builds sorted array one element at a time
+    \item \textbf{Merge Sort:} Divide-and-conquer algorithm that divides array into halves, sorts them, and merges
+    \item \textbf{Quick Sort:} Divide-and-conquer using pivot element to partition array
+    \item \textbf{Heap Sort:} Uses heap data structure to sort elements
+\end{itemize}
+
+\subsection{Binary Search Tree Implementation}
+
+The BST module provides:
+\begin{itemize}
+    \item Insert operation maintaining BST property
+    \item Search operation using tree traversal
+    \item Delete operation with three cases (no children, one child, two children)
+    \item In-order traversal for sorted output
+\end{itemize}
+
+\subsection{Heap Implementation}
+
+The Min-Heap implementation provides:
+\begin{itemize}
+    \item Insert operation with heapify-up
+    \item Extract-min operation with heapify-down
+    \item Used for priority queue operations in Dijkstra's algorithm and vehicle assignment
+\end{itemize}
+
+\subsection{Analytics Module}
+
+The Analytics class generates reports by:
+\begin{itemize}
+    \item Tracking station visit frequencies using hash tables
+    \item Analyzing route weights and traffic patterns
+    \item Using heap sorting for traffic density prediction
+    \item Using BST traversal for daily usage trends
+\end{itemize}
+
+\section{Algorithm Analysis}
+
+\subsection{Time Complexity Analysis}
+
+\subsubsection{Graph Algorithms}
+\begin{table}[h]
+\centering
+\caption{Graph Algorithm Complexities}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Algorithm} & \textbf{Time Complexity} & \textbf{Space Complexity} \\
+\hline
+BFS & O(V + E) & O(V) \\
+DFS & O(V + E) & O(V) \\
+Dijkstra's & O((V + E) log V) & O(V) \\
+MST (Prim's) & O((V + E) log V) & O(V) \\
+Cycle Detection & O(V + E) & O(V) \\
+\hline
+\end{tabular}
+\end{table}
+Where V = number of vertices (stations), E = number of edges (routes)
+
+\subsubsection{Hash Table Operations}
+\begin{table}[h]
+\centering
+\caption{Hash Table Operation Complexities}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Operation} & \textbf{Average Case} & \textbf{Worst Case} \\
+\hline
+Insert & O(1) & O(n) \\
+Search & O(1) & O(n) \\
+Delete & O(1) & O(n) \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Searching Algorithms}
+\begin{table}[h]
+\centering
+\caption{Searching Algorithm Complexities}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Algorithm} & \textbf{Best} & \textbf{Average} & \textbf{Worst} \\
+\hline
+Linear Search & O(1) & O(n) & O(n) \\
+Binary Search & O(1) & O(log n) & O(log n) \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Sorting Algorithms}
+\begin{table}[h]
+\centering
+\caption{Sorting Algorithm Complexities}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Algorithm} & \textbf{Best} & \textbf{Average} & \textbf{Worst} & \textbf{Space} \\
+\hline
+Bubble Sort & O(n) & O(n²) & O(n²) & O(1) \\
+Selection Sort & O(n²) & O(n²) & O(n²) & O(1) \\
+Insertion Sort & O(n) & O(n²) & O(n²) & O(1) \\
+Merge Sort & O(n log n) & O(n log n) & O(n log n) & O(n) \\
+Quick Sort & O(n log n) & O(n log n) & O(n²) & O(log n) \\
+Heap Sort & O(n log n) & O(n log n) & O(n log n) & O(1) \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Tree Operations}
+\begin{table}[h]
+\centering
+\caption{Binary Search Tree Operation Complexities}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Operation} & \textbf{Average Case} & \textbf{Worst Case} \\
+\hline
+Insert & O(log n) & O(n) \\
+Search & O(log n) & O(n) \\
+Delete & O(log n) & O(n) \\
+Traversal & O(n) & O(n) \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Heap Operations}
+\begin{table}[h]
+\centering
+\caption{Heap Operation Complexities}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Operation} & \textbf{Time Complexity} \\
+\hline
+Insert & O(log n) \\
+Extract-Min & O(log n) \\
+Build Heap & O(n) \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Space Complexity Analysis}
+
+The overall space complexity of the system depends on the data stored:
+\begin{itemize}
+    \item Graph: O(V + E) for adjacency list
+    \item Hash Table: O(n) where n is number of vehicles
+    \item Queue: O(n) where n is maximum queue size
+    \item Stack: O(n) where n is history depth
+    \item BST: O(n) where n is number of nodes
+    \item Heap: O(n) where n is number of elements
+\end{itemize}
+
+\section{Testing \& Results}
+
+\subsection{Testing Methodology}
+
+The system was tested using the following approaches:
+
+\subsubsection{Unit Testing}
+Each module was tested independently:
+\begin{itemize}
+    \item Graph operations tested with various network configurations
+    \item Hash table tested with different collision scenarios
+    \item Queue and stack tested with boundary conditions
+    \item Sorting algorithms tested with sorted, reverse-sorted, and random data
+    \item Searching algorithms tested with various data sizes
+\end{itemize}
+
+\subsubsection{Integration Testing}
+Modules were tested together to ensure proper interaction:
+\begin{itemize}
+    \item Graph and analytics integration
+    \item Queue and passenger management
+    \item Hash table and vehicle operations
+\end{itemize}
+
+\subsubsection{System Testing}
+Complete system functionality was tested through:
+\begin{itemize}
+    \item End-to-end user scenarios
+    \item Stress testing with large datasets
+    \item Performance benchmarking
+\end{itemize}
+
+\subsection{Test Results}
+
+\subsubsection{Graph Operations}
+\begin{itemize}
+    \item BFS and DFS correctly traverse all connected components
+    \item Dijkstra's algorithm finds correct shortest paths
+    \item MST generation produces valid spanning trees
+    \item Cycle detection accurately identifies cycles
+\end{itemize}
+
+\subsubsection{Hash Table Performance}
+\begin{itemize}
+    \item Average search time: O(1) as expected
+    \item Collision handling works correctly with chaining
+    \item Load factor maintained below threshold
+\end{itemize}
+
+\subsubsection{Sorting Algorithm Performance}
+All sorting algorithms produce correct results:
+\begin{itemize}
+    \item Merge sort and heap sort show O(n log n) performance
+    \item Quick sort performs well on average case
+    \item Bubble, selection, and insertion sort demonstrate O(n²) behavior
+\end{itemize}
+
+\subsubsection{Searching Algorithm Performance}
+\begin{itemize}
+    \item Linear search: O(n) time complexity verified
+    \item Binary search: O(log n) time complexity verified on sorted data
+\end{itemize}
+
+\subsection{Performance Benchmarks}
+
+The system was tested with varying data sizes:
+\begin{itemize}
+    \item Small networks (10-20 stations): All operations complete in milliseconds
+    \item Medium networks (50-100 stations): Graph algorithms complete in seconds
+    \item Large networks (200+ stations): System remains responsive with efficient algorithms
+\end{itemize}
+
+\section{Conclusion \& Limitations}
+
+\subsection{Conclusion}
+
+The Intelligent Transport Network Management System successfully demonstrates the practical application of fundamental data structures and algorithms in solving real-world transportation management problems. The system integrates all major CS221 concepts including graphs, hash tables, queues, stacks, trees, and heaps into a cohesive, functional application.
+
+Key achievements include:
+\begin{itemize}
+    \item Successful implementation of all required data structures from scratch
+    \item Efficient algorithms with documented complexity analysis
+    \item Modular, object-oriented design promoting code reusability
+    \item Comprehensive functionality covering route management, ticketing, vehicle database, and analytics
+\end{itemize}
+
+The project provides valuable hands-on experience in applying theoretical knowledge to practical problems, enhancing understanding of data structures and algorithms beyond textbook examples.
+
+\subsection{Limitations}
+
+The current implementation has the following limitations:
+
+\begin{itemize}
+    \item \textbf{Scalability:} The system may face performance issues with extremely large networks (1000+ stations) due to O(n²) operations in some modules
+    \item \textbf{Persistence:} Data is not persisted to disk; all information is lost when the program terminates
+    \item \textbf{User Interface:} The system uses a command-line interface, which may not be as user-friendly as a graphical interface
+    \item \textbf{Concurrency:} The system does not support multi-threading or concurrent operations
+    \item \textbf{Error Handling:} Some edge cases may not be fully handled, requiring more robust error checking
+    \item \textbf{Memory Management:} Manual memory management in C++ requires careful attention to avoid memory leaks
+\end{itemize}
+
+\subsection{Future Enhancements}
+
+Potential improvements for future versions include:
+\begin{itemize}
+    \item Database integration for data persistence
+    \item Graphical user interface (GUI) development
+    \item Multi-threading support for concurrent operations
+    \item Advanced analytics with machine learning integration
+    \item Real-time updates and notifications
+    \item Mobile application development
+    \item Integration with real transportation APIs
+\end{itemize}
+
+\section*{Acknowledgment}
+
+The authors would like to thank the CS221 course instructors for providing comprehensive guidelines and requirements for this project. Special thanks to the teaching assistants for their support throughout the development process.
+
+\begin{thebibliography}{99}
+
+\bibitem{ref1} Cormen, T. H., Leiserson, C. E., Rivest, R. L., \& Stein, C. (2009). \textit{Introduction to Algorithms} (3rd ed.). MIT Press.
+
+\bibitem{ref2} Sedgewick, R., \& Wayne, K. (2011). \textit{Algorithms} (4th ed.). Addison-Wesley Professional.
+
+\bibitem{ref3} Weiss, M. A. (2011). \textit{Data Structures and Algorithm Analysis in C++} (4th ed.). Pearson.
+
+\bibitem{ref4} Dijkstra, E. W. (1959). A note on two problems in connexion with graphs. \textit{Numerische Mathematik}, 1(1), 269-271.
+
+\bibitem{ref5} Kruskal, J. B. (1956). On the shortest spanning subtree of a graph and the traveling salesman problem. \textit{Proceedings of the American Mathematical Society}, 7(1), 48-50.
+
+\bibitem{ref6} Prim, R. C. (1957). Shortest connection networks and some generalizations. \textit{Bell System Technical Journal}, 36(6), 1389-1401.
+
+\bibitem{ref7} Knuth, D. E. (1998). \textit{The Art of Computer Programming, Volume 3: Sorting and Searching} (2nd ed.). Addison-Wesley.
+
+\bibitem{ref8} Goodrich, M. T., Tamassia, R., \& Mount, D. M. (2011). \textit{Data Structures and Algorithms in C++} (2nd ed.). John Wiley \& Sons.
+
+\end{thebibliography}
+
+\end{document}
+
