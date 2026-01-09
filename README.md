@@ -223,7 +223,7 @@ Use the interactive menu to:
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Authors
 
 * **Muhammad Ahmad**
 * **Raja Hamza**
